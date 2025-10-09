@@ -9,9 +9,7 @@ import {
   Group,
   Stack,
   Container,
-  Badge,
-  Flex,
-  Overlay
+  Badge
 } from '@inexture/core';
 import Redux from '@assets/img/logo/redux-logo.svg';
 import Mantine from '@assets/img/logo/mantine-logo.svg';
