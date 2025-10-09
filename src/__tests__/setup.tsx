@@ -3,7 +3,9 @@ import { vi } from 'vitest';
 
 // Mock the @inexture/core modules
 vi.mock('@inexture/core', () => ({
-  Button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+  Button: ({ children, ...props }: any) => (
+    <button {...props}>{children}</button>
+  ),
   Text: ({ children, ...props }: any) => <span {...props}>{children}</span>,
   Box: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   Stack: ({ children, ...props }: any) => <div {...props}>{children}</div>,
@@ -17,7 +19,9 @@ vi.mock('@inexture/core', () => ({
       {children}
     </div>
   ),
-  ActionIcon: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+  ActionIcon: ({ children, ...props }: any) => (
+    <button {...props}>{children}</button>
+  ),
   List: ({ children, ...props }: any) => <ul {...props}>{children}</ul>,
   ListItem: ({ children, ...props }: any) => <li {...props}>{children}</li>,
   Skeleton: (props: any) => <div {...props}>Loading...</div>,
@@ -33,13 +37,17 @@ vi.mock('@inexture/core/icons/ai', () => ({
 
 // Mock react-router
 vi.mock('react-router', () => ({
-  Link: ({ children, to, ...props }: any) => <a href={to} {...props}>{children}</a>
+  Link: ({ children, to, ...props }: any) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  )
 }));
 
 // Mock dayjs
 vi.mock('dayjs', () => {
-  const mockDayjs = (date?: any) => ({
-    format: (format: string) => '2023-10-09'
+  const mockDayjs = () => ({
+    format: () => '2023-10-09'
   });
   return { default: mockDayjs };
 });
@@ -48,7 +56,7 @@ vi.mock('dayjs', () => {
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
-  disconnect: vi.fn(),
+  disconnect: vi.fn()
 }));
 
 // Mock window.matchMedia
@@ -62,6 +70,6 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+    dispatchEvent: vi.fn()
+  }))
 });
