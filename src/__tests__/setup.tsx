@@ -29,8 +29,8 @@ vi.mock('@inexture/core', () => ({
   mergeMantineTheme: vi.fn()
 }));
 
-// Mock @inexture/core/icons/ai
-vi.mock('@inexture/core/icons/ai', () => ({
+// Mock @inexture/icons/ai
+vi.mock('@inexture/icons/ai', () => ({
   AiFillGithub: () => <span>GitHub Icon</span>,
   AiFillEye: () => <span>Eye Icon</span>
 }));

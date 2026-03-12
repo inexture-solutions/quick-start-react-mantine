@@ -14,7 +14,7 @@ import {
 } from '@inexture/core';
 import { useGetReposQuery } from '@services/dummy.service.ts';
 import dayjs from 'dayjs';
-import { AiFillEye, AiFillGithub } from '@inexture/core/icons/ai';
+import { AiFillEye, AiFillGithub } from '@inexture/icons/ai';
 
 const LoadingRepoCard = () => {
   return (
