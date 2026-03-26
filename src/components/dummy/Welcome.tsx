@@ -236,7 +236,7 @@ const Welcome = () => {
                     >
                       <Paper
                         p="xl"
-                        radius="xl"
+                        radius="xs"
                         className="group glass card-hover hover-lift border border-gray-100"
                         style={{
                           animationDelay: `${index * 0.1}s`
@@ -248,7 +248,7 @@ const Welcome = () => {
                           className="relative z-10"
                         >
                           <Box
-                            className="p-3 rounded-xl transition-all duration-300 group-hover:scale-110"
+                            className="p-3 rounded-md transition-all duration-300 group-hover:scale-110"
                             style={{
                               background: `${stack.color}15`,
                               border: `2px solid ${stack.color}20`

@@ -13,10 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "vite-plugin-svgr/client"
-    ],
+    "types": ["vite/client", "vite-plugin-svgr/client"],
 
     /* Linting */
     "strict": true,
@@ -41,7 +38,7 @@
       "@components/*": ["components/*"],
       "@assets/*": ["assets/*"],
       "@utils/*": ["utils/*"],
-      "@services/*": ["services/*"],
+      "@services/*": ["services/*"]
     }
   },
   "include": [
@@ -52,5 +49,5 @@
     ".eslintrc.cjs",
     ".prettierrc",
     ".svgrrc.js"
-  ],
+  ]
 }

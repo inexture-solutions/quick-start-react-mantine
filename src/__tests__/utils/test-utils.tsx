@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -84,6 +83,14 @@ export const mockAuthState = {
   }
 };
 
-// Re-export everything
-export * from '@testing-library/react';
+export {
+  act,
+  cleanup,
+  fireEvent,
+  renderHook,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+  within
+} from '@testing-library/react';
 export { customRender as render, createMockStore };

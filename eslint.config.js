@@ -1,4 +1,3 @@
-import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -38,7 +37,6 @@ export default [
       'react-refresh': reactRefresh
     },
     rules: {
-      ...js.configs.recommended.rules,
       ...typescript.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
@@ -57,6 +55,6 @@ export default [
     }
   },
   {
-    ignores: ['dist/**/*', '.eslintrc.cjs', 'node_modules/**/*']
+    ignores: ['dist/**/*', 'node_modules/**/*']
   }
 ];

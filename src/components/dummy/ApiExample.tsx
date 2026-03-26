@@ -75,7 +75,7 @@ const ApiExample: FC = () => {
                 key={item?.id}
                 shadow="lg"
                 p="xl"
-                radius="xl"
+                radius="xs"
                 className="group glass card-hover hover-lift border border-gray-100"
                 style={{
                   animationDelay: `${index * 0.1}s`
