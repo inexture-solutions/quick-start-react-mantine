@@ -1,29 +1,65 @@
 import { describe, it, expect, vi } from 'vitest';
-import { baseQuery } from '@/services/api.service';
 
-// Mock the fetchBaseQuery
-vi.mock('@reduxjs/toolkit/query/react', () => ({
-  fetchBaseQuery: vi.fn(),
-  createApi: vi.fn(() => ({
+const { fetchBaseQueryMock, createApiMock } = vi.hoisted(() => {
+  const fetchBaseQueryMock = vi.fn(() => vi.fn());
+  const createApiMock = vi.fn(() => ({
     reducer: vi.fn(),
     middleware: vi.fn(),
     reducerPath: 'api'
-  }))
+  }));
+  return { fetchBaseQueryMock, createApiMock };
+});
+
+vi.mock('@reduxjs/toolkit/query/react', () => ({
+  fetchBaseQuery: fetchBaseQueryMock,
+  createApi: createApiMock
 }));
+
+import { baseQuery } from '@/services/api.service';
 
 describe('API Service', () => {
   it('should be defined', () => {
     expect(baseQuery).toBeDefined();
+    expect(typeof baseQuery).toBe('function');
   });
 
   it('configures base URL correctly', () => {
-    // Since we're mocking fetchBaseQuery, we test that it's called with correct config
-    expect(vi.mocked).toBeDefined();
+    expect(fetchBaseQueryMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        baseUrl: 'https://api.github.com',
+        prepareHeaders: expect.any(Function)
+      })
+    );
   });
 
   describe('prepareHeaders function', () => {
+    type FetchBaseQueryConfig = {
+      prepareHeaders?: (
+        headers: Headers,
+        api: { getState: () => unknown }
+      ) => Headers;
+    };
+
+    const getPrepareHeaders = () => {
+      const calls = fetchBaseQueryMock.mock.calls as unknown as Array<
+        [FetchBaseQueryConfig]
+      >;
+      const args = calls[0];
+      if (!args) {
+        throw new Error('fetchBaseQuery was not called');
+      }
+      const config = args[0];
+      const { prepareHeaders } = config;
+      if (!prepareHeaders) {
+        throw new Error('prepareHeaders not found');
+      }
+      return prepareHeaders;
+    };
+
     it('should add Authorization header when token exists', () => {
-      const mockGetState = vi.fn().mockReturnValue({
+      const prepareHeaders = getPrepareHeaders();
+      const headers = new Headers();
+      const getState = vi.fn().mockReturnValue({
         app: {
           auth: {
             token: {
@@ -33,13 +69,15 @@ describe('API Service', () => {
         }
       });
 
-      // This would be tested if we could access the prepareHeaders function
-      // For now, we test the service structure
-      expect(mockGetState).toBeDefined();
+      const result = prepareHeaders(headers, { getState });
+      expect(result.get('Authorization')).toBe('Bearer test-access-token');
     });
 
     it('should remove Authorization header when no token', () => {
-      const mockGetState = vi.fn().mockReturnValue({
+      const prepareHeaders = getPrepareHeaders();
+      const headers = new Headers();
+      headers.set('Authorization', 'Bearer old');
+      const getState = vi.fn().mockReturnValue({
         app: {
           auth: {
             token: {
@@ -49,24 +87,30 @@ describe('API Service', () => {
         }
       });
 
-      expect(mockGetState).toBeDefined();
+      const result = prepareHeaders(headers, { getState });
+      expect(result.has('Authorization')).toBe(false);
     });
   });
 
   describe('API configuration', () => {
     it('should have correct base URL', () => {
-      // Test that the service is configured with GitHub API
       expect(baseQuery).toBeDefined();
     });
 
     it('should have proper tag types', () => {
-      // Test tag types configuration
-      expect(true).toBe(true); // Placeholder for actual implementation
+      expect(createApiMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tagTypes: ['GET_DUMMY_USERS']
+        })
+      );
     });
 
     it('should enable refetch on reconnect', () => {
-      // Test refetchOnReconnect configuration
-      expect(true).toBe(true); // Placeholder for actual implementation
+      expect(createApiMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          refetchOnReconnect: true
+        })
+      );
     });
   });
 });

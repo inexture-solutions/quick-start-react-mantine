@@ -89,10 +89,9 @@ describe('ApiExample Component', () => {
     render(<ApiExample />);
 
     await waitFor(() => {
-      // Check for update dates
-      expect(screen.getByText(/Updated: 2023-10-09/)).toBeInTheDocument();
+      const updated = screen.getAllByText(/Updated: 2023-10-09/);
+      expect(updated.length).toBeGreaterThanOrEqual(1);
 
-      // Check for license information
       expect(screen.getByText(/License: MIT/)).toBeInTheDocument();
       expect(screen.getByText(/License: Apache-2.0/)).toBeInTheDocument();
     });

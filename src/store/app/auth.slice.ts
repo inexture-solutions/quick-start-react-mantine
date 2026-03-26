@@ -26,7 +26,7 @@ export const authSlice = createSlice({
     SET_AUTH_TOKEN: (state, action: PayloadAction<IAuthToken>) => ({
       ...state,
       token: action.payload,
-      isLoggedIn: !!state.token.access
+      isLoggedIn: !!action.payload.access
     })
   }
 });
