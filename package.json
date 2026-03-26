@@ -17,7 +17,7 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "test:coverage": "vitest --coverage",
-    "validate": "bun run lint && bun run format:check && bun run test"
+    "validate": "bun run lint && bun run format:check && bun run test:run"
   },
   "dependencies": {
     "@inexture/core": "^21.0.4",
