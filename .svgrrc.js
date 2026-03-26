@@ -1,4 +1,4 @@
 module.exports = {
   icon: true,
-  expandProps: false,
+  expandProps: false
 };

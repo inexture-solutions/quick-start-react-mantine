@@ -12,14 +12,12 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "test:coverage": "vitest --coverage"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "test:coverage": "vitest --coverage",
+    "validate": "bun run lint && bun run format:check && bun run test"
   },
   "dependencies": {
     "@inexture/core": "^21.0.4",
@@ -50,6 +48,7 @@
     "@typescript-eslint/parser": "^8.57.2",
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/ui": "^4.1.1",
+    "baseline-browser-mapping": "^2.10.10",
     "eslint": "^10.1.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",

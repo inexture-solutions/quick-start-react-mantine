@@ -8,22 +8,12 @@ vi.mock('@inexture/core', () => ({
     component,
     href,
     to,
-    gradient: _g,
-    leftSection: _ls,
-    leftsection: _ls2,
-    variant: _v,
-    color: _c,
-    radius: _r,
-    size: _s,
-    loading: _l,
-    fullWidth: _fw,
     className,
     style,
     onClick,
     target,
     rel,
-    type = 'button',
-    ..._rest
+    type = 'button'
   }: any) => {
     const common = { className, style, onClick, target, rel };
     if (component === 'a') {
@@ -68,9 +58,7 @@ vi.mock('@inexture/core', () => ({
   Flex: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   Container: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   Paper: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-  Image: ({ alt, ...props }: any) => (
-    <img alt={alt ?? ''} {...props} />
-  ),
+  Image: ({ alt, ...props }: any) => <img alt={alt ?? ''} {...props} />,
   Badge: ({ children, ...props }: any) => <span {...props}>{children}</span>,
   Tooltip: ({ children, label, ...props }: any) => (
     <div {...props} title={label}>
@@ -83,7 +71,7 @@ vi.mock('@inexture/core', () => ({
   List: ({ children, ...props }: any) => <ul {...props}>{children}</ul>,
   ListItem: ({ children, ...props }: any) => <li {...props}>{children}</li>,
   Skeleton: (props: any) => <div {...props}>Loading...</div>,
-  Modal: ({ children, opened, ..._rest }: any) =>
+  Modal: ({ children, opened }: any) =>
     opened ? <div data-testid="inexture-modal">{children}</div> : null,
   createTheme: vi.fn(),
   mergeMantineTheme: vi.fn()
