@@ -18,20 +18,20 @@ Open [http://localhost:3000](http://localhost:3000) (see `vite.config.ts`).
 
 ## Scripts
 
-| Script          | Description                                                                    |
-| --------------- | ------------------------------------------------------------------------------ |
-| `dev`           | Start Vite dev server                                                          |
-| `build`         | Typecheck (`tsc`) and production build to `build/`                             |
-| `preview`       | Preview the production build                                                   |
-| `lint`          | ESLint on `ts` / `tsx` (zero warnings enforced)                                |
-| `format`        | Prettier, write                                                                |
-| `format:check`  | Prettier, check only                                                           |
-| `test`          | Vitest (watch)                                                                 |
-| `test:run`      | Vitest single run                                                              |
-| `test:ui`       | Vitest UI                                                                      |
-| `test:coverage` | Vitest with coverage                                                           |
-| `validate`      | `lint` + `format:check` + `test:run` (full gate)                               |
-| `staged`        | Run [nano-staged](https://github.com/usmanyunusov/nano-staged) (see Git hooks) |
+| Script          | Description                                                                   |
+| --------------- | ----------------------------------------------------------------------------- |
+| `dev`           | Start Vite dev server                                                         |
+| `build`         | Typecheck (`tsc`) and production build to `build/`                            |
+| `preview`       | Preview the production build                                                  |
+| `lint`          | ESLint on `ts` / `tsx` (zero warnings enforced)                               |
+| `format`        | Prettier, write                                                               |
+| `format:check`  | Prettier, check only                                                          |
+| `test`          | Vitest (watch)                                                                |
+| `test:run`      | Vitest single run                                                             |
+| `test:ui`       | Vitest UI                                                                     |
+| `test:coverage` | Vitest with coverage                                                          |
+| `validate`      | `lint` + `format:check` + `test:run` (full gate)                              |
+| `staged`        | Run [lint-staged](https://github.com/lint-staged/lint-staged) (see Git hooks) |
 
 ## Stack
 
@@ -47,9 +47,11 @@ Open [http://localhost:3000](http://localhost:3000) (see `vite.config.ts`).
 
 Path aliases (see `vite.config.ts` / `tsconfig.json`): `@`, `@components`, `@assets`, `@utils`, `@services`, etc.
 
-## Git hooks (Husky + nano-staged)
+## Git hooks (Husky + lint-staged)
 
-After `bun install`, the `prepare` script enables Husky. **pre-commit** runs **nano-staged**, which is configured in [`.nano-staged.js`](./.nano-staged.js) to run **`bun run validate`** (lint, format check, tests) when there are staged files.
+After `bun install`, the `prepare` script enables Husky. **pre-commit** runs **[lint-staged](https://github.com/lint-staged/lint-staged)**, configured in [`lint-staged.config.mjs`](./lint-staged.config.mjs) to run **`bun run validate`** when there is at least one staged file (lint, format check, tests on the whole repo).
+
+**lint-staged vs [nano-staged](https://github.com/usmanyunusov/nano-staged):** nano-staged is much smaller and a bit faster in its own micro-benchmarks; **lint-staged** is the more common choice, with **more granular control** (stash backup/revert, concurrency, `--diff` / monorepo-style setups, richer docs and examples). For “only run ESLint/Prettier on staged files,” both work; this template uses a function config so `validate` runs **without** appending filenames to the command.
 
 To run the same check manually:
 
@@ -57,7 +59,7 @@ To run the same check manually:
 bun run validate
 ```
 
-To run nano-staged alone (e.g. to mirror the hook):
+To run lint-staged alone (e.g. to mirror the hook):
 
 ```bash
 bun run staged
