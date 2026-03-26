@@ -49,9 +49,7 @@ Path aliases (see `vite.config.ts` / `tsconfig.json`): `@`, `@components`, `@ass
 
 ## Git hooks (Husky + lint-staged)
 
-After `bun install`, the `prepare` script enables Husky. **pre-commit** runs **[lint-staged](https://github.com/lint-staged/lint-staged)**, configured in [`lint-staged.config.mjs`](./lint-staged.config.mjs) to run **`bun run validate`** when there is at least one staged file (lint, format check, tests on the whole repo).
-
-**lint-staged vs [nano-staged](https://github.com/usmanyunusov/nano-staged):** nano-staged is much smaller and a bit faster in its own micro-benchmarks; **lint-staged** is the more common choice, with **more granular control** (stash backup/revert, concurrency, `--diff` / monorepo-style setups, richer docs and examples). For “only run ESLint/Prettier on staged files,” both work; this template uses a function config so `validate` runs **without** appending filenames to the command.
+After `bun install`, the `prepare` script enables Husky. **pre-commit** runs **[lint-staged](https://github.com/lint-staged/lint-staged)**, configured in [`lint-staged.config.mjs`](./lint-staged.config.mjs) to run **`bun run validate`** when there is at least one staged file (lint, format check, tests on the whole repo). The config uses a function export so `validate` is invoked as-is, without lint-staged appending filenames to the command.
 
 To run the same check manually:
 
